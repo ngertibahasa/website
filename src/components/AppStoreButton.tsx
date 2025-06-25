@@ -25,7 +25,7 @@ const AppStoreButton = ({ dark }: { dark?: boolean }) => {
           </svg>
         </div>
         <div>
-          {/* Mantabb */}
+          {/* Mantabbbb */}
           <div className="text-xs">Download on the</div>
           <div className="-mt-1 font-sans text-xl font-semibold">App Store</div>
         </div>

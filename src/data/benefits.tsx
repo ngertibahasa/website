@@ -1,72 +1,65 @@
-import { FiBarChart2, FiBriefcase, FiDollarSign, FiLock, FiPieChart, FiShield, FiTarget, FiTrendingUp, FiUser } from "react-icons/fi";
+import {
+  FiBarChart2,
+  FiBriefcase,
+  FiDollarSign,
+  FiPieChart,
+  FiTarget,
+  FiTrendingUp,
+} from "react-icons/fi";
 
-import { IBenefit } from "@/types"
+import { IBenefit } from "@/types";
 
 export const benefits: IBenefit[] = [
-    {
-        title: "Smart Budgeting",
-        description: "Take the guesswork out of managing your money. Our AI-powered budgeting tool adapts to your lifestyle and helps you stay on track.",
-        bullets: [
-            {
-                title: "Intelligent Categorization",
-                description: "Automatically sorts your transactions for crystal-clear insights.",
-                icon: <FiBarChart2 size={26} />
-            },
-            {
-                title: "Customizable Goals",
-                description: "Set and track financial objectives that matter to you.",
-                icon: <FiTarget size={26} />
-            },
-            {
-                title: "Predictive Analysis",
-                description: "Get ahead of your finances with spending forecasts and alerts.",
-                icon: <FiTrendingUp size={26} />
-            }
-        ],
-        imageSrc: "/images/mockup-1.webp"
-    },
-    {
-        title: "Seamless Investing",
-        description: "Start building wealth today, no financial degree required. Finwise makes investing accessible and straightforward.",
-        bullets: [
-            {
-                title: "Micro-Investing",
-                description: "Begin with as little as $1 and watch your money grow.",
-                icon: <FiDollarSign size={26} />
-            },
-            {
-                title: "Expert Portfolios",
-                description: "Choose from investment strategies tailored to your risk tolerance.",
-                icon: <FiBriefcase size={26} />
-            },
-            {
-                title: "Real-Time Performance",
-                description: "Track your investments with easy-to-understand metrics and visuals.",
-                icon: <FiPieChart size={26} />
-            }
-        ],
-        imageSrc: "/images/mockup-2.webp"
-    },
-    {
-        title: "Bank-Grade Security",
-        description: "Your financial data deserves the best protection. Rest easy knowing Finwise employs cutting-edge security measures.",
-        bullets: [
-            {
-                title: "Military-Grade Encryption",
-                description: "Your information is safeguarded with the highest level of encryption.",
-                icon: <FiLock size={26} />
-            },
-            {
-                title: "Biometric Authentication",
-                description: "Access your account securely with fingerprint or facial recognition.",
-                icon: <FiUser size={26} />
-            },
-            {
-                title: "Real-Time Fraud Detection",
-                description: "Our system constantly monitors for suspicious activity to keep your money safe.",
-                icon: <FiShield size={26} />
-            }
-        ],
-        imageSrc: "/images/mockup-1.webp"
-    },
-]
+  {
+    title: "Fitur & Benefit",
+    description:
+      "Kelas disesuaikan dengan level dan gaya belajarmu. Mau mulai dari nol atau upgrade skill? Bisa semua!",
+    bullets: [
+      {
+        title: "Real-Life Conversation Practice",
+        description:
+          "Latihan speaking dengan topik kekinian & situasi nyata. Biar kamu nggak cuma ngerti, tapi juga pede ngomong!",
+        icon: <FiBarChart2 size={26} />,
+      },
+      {
+        title: "Progress Tracking",
+        description:
+          "Setiap langkah belajarmu dipantau dan dievaluasi. Kamu tahu kapan harus gaspol, kapan waktunya review.",
+        icon: <FiTarget size={26} />,
+      },
+      {
+        title: "Flexible Schedule",
+        description:
+          "Belajar bisa diatur sesuai jadwal kamu. Kuliah atau kerja? Tetap bisa ikut kelas tanpa ribet.",
+        icon: <FiTrendingUp size={26} />,
+      },
+    ],
+    imageSrc: "/images/benefit-1.webp",
+  },
+  {
+    title: "Siapa Aja Bisa Mulai!",
+    description:
+      "Mulai lancar Bahasa Inggris hari ini, nggak perlu background Bahasa atau pengalaman khusus. Ngerti Bahasa bikin belajar jadi mudah & menyenangkan.",
+    bullets: [
+      {
+        title: "Pelajar & Mahasiswa",
+        description:
+          "Mulai dari vocabulary, grammar, sampai latihan speaking. Cocok buat persiapan sekolah, kuliah, atau beasiswa luar negeri.",
+        icon: <FiDollarSign size={26} />,
+      },
+      {
+        title: "Fresh Graduate & Pencari Kerja",
+        description:
+          "Upgrade skill Bahasa Inggris kamu biar makin pede di wawancara, CV, dan dunia kerja internasional.",
+        icon: <FiBriefcase size={26} />,
+      },
+      {
+        title: "Karyawan & Profesional",
+        description:
+          "Latihan komunikasi formal dan presentasi biar kamu siap naik level di kantor atau pitching ke klien luar.",
+        icon: <FiPieChart size={26} />,
+      },
+    ],
+    imageSrc: "/images/benefit-2.webp",
+  },
+];

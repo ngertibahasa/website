@@ -1,12 +1,14 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import React from "react";
 import styled from "styled-components";
 
 const ButtonTanya = () => {
+  const router = useRouter()
   return (
     <StyledWrapper>
-      <button>
+      <button onClick={() => router.push('/konsultasi')}>
         Konsultasi
         <div className="star-1">
           <svg

@@ -1,12 +1,15 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import React from "react";
 import styled from "styled-components";
 
 const ButtonDaftar = () => {
+  const router = useRouter()
+
   return (
     <StyledWrapper>
-      <button className="w-full">
+      <button className="w-full" onClick={() => router.push('/registrasi')}>
         <div className="svg-wrapper-1">
           <div className="svg-wrapper">
             <svg

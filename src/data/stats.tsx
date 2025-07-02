@@ -12,13 +12,13 @@ export const stats: IStats[] = [
   },
   {
     title: "5.0",
-    icon: <BsFillStarFill size={34} className="text-yellow-500" />,
+    icon: <BsFillStarFill size={34} className="text-blue-500" />,
     description:
       "Rating sempurna dari para siswa di berbagai platform. Belajar seru & efektif!",
   },
   {
     title: "200+",
-    icon: <PiGlobeFill size={34} className="text-green-600" />,
+    icon: <PiGlobeFill size={34} className="text-blue-600" />,
     description:
       "Peserta dari seluruh Indonesia & luar negeri. Belajar bareng komunitas yang supportif!",
   },

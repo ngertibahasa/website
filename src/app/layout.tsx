@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { GoogleAnalytics } from '@next/third-parties/google';
 import { Source_Sans_3, Manrope } from "next/font/google";
-
+import { Toaster } from "sonner";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { siteDetails } from '@/data/siteDetails';
@@ -50,6 +50,7 @@ export default function RootLayout({
         <Header />
         <main>
           {children}
+          <Toaster richColors position="top-right" />
         </main>
         <Footer />
       </body>

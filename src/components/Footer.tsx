@@ -8,22 +8,22 @@ import { getPlatformIconByName } from "@/utils";
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-hero-background text-foreground py-10">
+    <footer className="bg-[#D71313] text-[#EEEDED] py-10">
       <div className="max-w-7xl w-full mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-10">
         <div>
           <Link href="/" className="flex items-center gap-2">
             <FaFingerprint className="min-w-fit w-5 h-5 md:w-7 md:h-7" />
-            <h3 className="manrope text-xl font-semibold cursor-pointer">
+            <h3 className="manrope text-[#EEEDED] text-xl font-semibold cursor-pointer">
               {siteDetails.siteName}
             </h3>
           </Link>
-          <p className="mt-3.5 text-foreground-accent">
+          <p className="mt-3.5 text-[#EEEDED]">
             {footerDetails.subheading}
           </p>
         </div>
         <div>
           <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
-          <ul className="text-foreground-accent">
+          <ul className="text-[#EEEDED]">
             {footerDetails.quickLinks.map((link) => (
               <li key={link.text} className="mb-2">
                 <Link href={link.url} className="hover:text-foreground">
@@ -39,7 +39,7 @@ const Footer: React.FC = () => {
           {footerDetails.email && (
             <a
               href={`mailto:${footerDetails.email}`}
-              className="block text-foreground-accent hover:text-foreground"
+              className="block text-[#EEEDED] hover:text-foreground"
             >
               Email: {footerDetails.email}
             </a>
@@ -48,7 +48,7 @@ const Footer: React.FC = () => {
           {footerDetails.telephone && (
             <a
               href={`tel:${footerDetails.telephone}`}
-              className="block text-foreground-accent hover:text-foreground"
+              className="block text-[#EEEDED] hover:text-foreground"
             >
               Phone: {footerDetails.telephone}
             </a>
@@ -73,8 +73,8 @@ const Footer: React.FC = () => {
           )}
         </div>
       </div>
-      <div className="mt-8 md:text-center text-foreground-accent px-6">
-        <p className="text-sm mt-2 text-gray-500">
+      <div className="mt-8 md:text-center text-[#EEEDED] px-6">
+        <p className="text-sm mt-2 text-gray-50">
           Copyright &copy; {new Date().getFullYear()} {siteDetails.siteName}.
           All rights reserved.
         </p>

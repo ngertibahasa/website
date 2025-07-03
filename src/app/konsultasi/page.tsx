@@ -25,6 +25,7 @@ import {
     CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import {
     Command,
     CommandEmpty,
@@ -51,6 +52,9 @@ const FormSchema = z.object({
     }).max(99, {
         message: "Usia tidak boleh lebih dari 99 tahun."
     }),
+    domisili: z.string().min(2, {
+        message: "Domisili harus berisi minimal 2 karakter.",
+    }),
     program: z.string().min(3, {
         message: "Program harus dipilih atau diisi minimal 3 karakter.",
     }),
@@ -72,6 +76,7 @@ export default function Konsultasi() {
         defaultValues: {
             nama: "",
             usia: 0,
+            domisili: "",
             program: "",
         },
     });
@@ -93,6 +98,7 @@ export default function Konsultasi() {
                 body: JSON.stringify({
                     Nama: data.nama,
                     Usia: data.usia,
+                    Domisili: data.domisili,
                     Program: data.program,
                 }),
             });
@@ -152,7 +158,7 @@ export default function Konsultasi() {
                     className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.0625rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-blue-100 to-blue-400 opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
                 />
             </div>
-            <div className="flex flex-col md:flex-row p-5 items-center justify-center min-h-screen bg-gray-50">
+            <div className="flex flex-col md:flex-row p-5 items-center justify-center min-h-screen py-20 pt-32 bg-gray-50">
                 <div className="w-full md:w-1/2 flex items-center justify-center mb-8 md:mb-0">
                     <div className="text-center max-w-lg mx-auto md:text-lleft">
                         <Image alt="konsultasi" src="/images/benefit-1.webp" className="mx-auto" width={300} height={300} />
@@ -164,7 +170,7 @@ export default function Konsultasi() {
                         </p>
                     </div>
                 </div>
-                <div className="flex min-h-[60vh] h-full w-full md:w-1/2 items-center justify-center px-4 z-20">
+                <div className="flex h-full w-full md:w-1/2 items-center justify-center px-5 z-20">
                     <Card className="w-full max-w-lg shadow-lg">
                         <CardHeader>
                             <CardTitle className="text-2xl text-blue-600 font-semibold">Konsultasi Gratis</CardTitle>
@@ -200,6 +206,28 @@ export default function Konsultasi() {
                                                 <FormControl>
                                                     <Input type="number" placeholder="Contoh: 25" {...field} />
                                                 </FormControl>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
+
+                                    {/* Field Domisili / Note (Textarea) */}
+                                    <FormField
+                                        control={form.control}
+                                        name="domisili"
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormLabel>Domisili</FormLabel>
+                                                <FormControl>
+                                                    <Textarea
+                                                        placeholder="Contoh: Surabaya, Jawa Timur."
+                                                        className="resize-y"
+                                                        {...field}
+                                                    />
+                                                </FormControl>
+                                                <FormDescription>
+                                                    Masukkan domisili kamu.
+                                                </FormDescription>
                                                 <FormMessage />
                                             </FormItem>
                                         )}
@@ -286,6 +314,7 @@ export default function Konsultasi() {
                                         )}
                                     />
 
+                                    {/* Button */}
                                     <Button type="submit" className="w-full text-black bg-yellow-300 hover:bg-yellow-200" disabled={isLoading}>
                                         {isLoading ? (
                                             <>

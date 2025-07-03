@@ -48,6 +48,10 @@ const StyledWrapper = styled.div`
     cursor: pointer;
   }
 
+  button:hover{
+    background: #0D1282;
+  }
+
   button span {
     display: block;
     margin-left: 0.3em;

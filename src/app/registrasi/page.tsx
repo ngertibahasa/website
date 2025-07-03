@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
-import { Check, ChevronsUpDown, Loader2 } from "lucide-react"; // Import Loader2
+import { Check, ChevronsUpDown, Loader2 } from "lucide-react";
 import * as React from "react";
 
 import { Button } from "@/components/ui/button";
@@ -25,6 +25,7 @@ import {
     CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import {
     Command,
     CommandEmpty,
@@ -41,7 +42,7 @@ import {
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 
-// --- Form Schema for English Course Consultation ---
+// --- Form Schema for Registration ---
 const FormSchema = z.object({
     nama: z.string().min(2, {
         message: "Nama harus berisi minimal 2 karakter.",
@@ -51,20 +52,55 @@ const FormSchema = z.object({
     }).max(99, {
         message: "Usia tidak boleh lebih dari 99 tahun."
     }),
-    program: z.string().min(3, {
-        message: "Program harus dipilih atau diisi minimal 3 karakter.",
+    whatsapp: z.string().regex(/^(\+62|0)\d{9,13}$/, { // Regex untuk format nomor WA Indonesia
+        message: "Nomor WhatsApp tidak valid (contoh: 081234567890 atau +6281234567890).",
+    }),
+    email: z.string().email({
+        message: "Format email tidak valid.",
+    }),
+    program: z.string().min(1, { // Pastikan Combobox tidak kosong
+        message: "Program harus dipilih.",
+    }),
+    jam: z.string().min(1, { // Pastikan Combobox tidak kosong
+        message: "Waktu belajar harus dipilih.",
+    }),
+    domisili: z.string().min(2, {
+        message: "Domisili harus berisi minimal 2 karakter.",
+    }),
+    source: z.string().min(1, { // Pastikan Combobox tidak kosong
+        message: "Bagaimana Anda tahu kami harus dipilih.",
     }),
 });
 
 // List of available English programs
 const availablePrograms = [
-    { label: "General English", value: "general-english" },
-    { label: "Conversation Class", value: "conversation-class" },
-    { label: "TOEFL Preparation", value: "toefl-preparation" },
-    { label: "IELTS Preparation", value: "ielts-preparation" },
-    { label: "Business English", value: "business-english" },
-    { label: "English for Kids", value: "english-for-kids" },
+    { label: "General English", value: "General English" },
+    { label: "Conversation Class", value: "Conversation Class" },
+    { label: "TOEFL Preparation", value: "TOEFL Preparation" },
+    { label: "IELTS Preparation", value: "IELTS Preparation" },
+    { label: "Business English", value: "Business English" },
+    { label: "English for Kids", value: "English for Kids" },
+    { label: "Lainnya", value: "Lainnya" },
 ];
+
+// List of available study times
+const availableTimes = [
+    { label: "Pagi (08:00 - 12:00)", value: "Pagi (08:00 - 12:00)" },
+    { label: "Siang (13:00 - 17:00)", value: "Siang (13:00 - 17:00)" },
+    { label: "Malam (18:00 - 21:00)", value: "Malam (18:00 - 21:00)" },
+    { label: "Fleksibel", value: "Fleksibel" },
+];
+
+// List of sources
+const howDidYouKnowUs = [
+    { label: "Media Sosial", value: "Media Sosial" },
+    { label: "Google / Pencarian Online", value: "Google / Pencarian Online" },
+    { label: "Rekomendasi Teman / Keluarga", value: "Rekomendasi Teman / Keluarga" },
+    { label: "Iklan", value: "Iklan" },
+    { label: "Event / Pameran", value: "Event / Pameran" },
+    { label: "Lainnya", value: "Lainnya" },
+];
+
 
 export default function Registrasi() {
     const form = useForm<z.infer<typeof FormSchema>>({
@@ -72,7 +108,12 @@ export default function Registrasi() {
         defaultValues: {
             nama: "",
             usia: 0,
+            whatsapp: "",
+            email: "",
             program: "",
+            jam: "",
+            domisili: "",
+            source: "",
         },
     });
 
@@ -83,9 +124,10 @@ export default function Registrasi() {
     async function onSubmit(data: z.infer<typeof FormSchema>) {
         setIsLoading(true); // Set loading ke true saat proses dimulai
         try {
+            // Menggunakan environment variable atau fallback URL
             const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "https://save-leads-neon.vercel.app";
 
-            const response = await fetch(`${backendUrl}/api/konsultasi`, {
+            const response = await fetch(`${backendUrl}/api/registrasi`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -93,20 +135,24 @@ export default function Registrasi() {
                 body: JSON.stringify({
                     Nama: data.nama,
                     Usia: data.usia,
-                    Program: data.program,
+                    NoWA: data.whatsapp,
+                    Email: data.email,
+                    Program: data.program, // Combobox value
+                    Jam: data.jam, // Combobox value
+                    Domisili: data.domisili, // Mapped 'domisili' to 'Note'
+                    TauNBdariMana: data.source, // Combobox value
                 }),
             });
 
             const result = await response.json();
 
             if (response.ok && result.status === "success") {
-                toast.success("Permintaan konsultasi berhasil dikirim!", {
-                    className: "bg-green-500",
+                toast.success("Permintaan registrasi berhasil dikirim!", {
                     description: "Anda akan diarahkan ke WhatsApp kami untuk diskusi lebih lanjut.",
                     duration: 3000,
                     onAutoClose: () => {
                         const phoneNumber = "6281234567890"; // Ganti dengan nomor WhatsApp Anda
-                        const message = encodeURIComponent(`Halo, saya ${data.nama} (Usia: ${data.usia}, Program diminati: ${data.program}). Saya ingin konsultasi lebih lanjut mengenai kursus bahasa Inggris.`);
+                        const message = encodeURIComponent(`Halo, saya ${data.nama} (Usia: ${data.usia}, Program diminati: ${data.program}). Saya ingin registrasi lebih lanjut mengenai kursus bahasa Inggris.`);
                         const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
                         window.open(whatsappUrl, '_blank');
                     },
@@ -114,7 +160,7 @@ export default function Registrasi() {
                         label: 'Ke WhatsApp',
                         onClick: () => {
                             const phoneNumber = "6281234567890";
-                            const message = encodeURIComponent(`Halo, saya ${data.nama} (Usia: ${data.usia}, Program diminati: ${data.program}). Saya ingin konsultasi lebih lanjut mengenai kursus bahasa Inggris.`);
+                            const message = encodeURIComponent(`Halo, saya ${data.nama} (Usia: ${data.usia}, Program diminati: ${data.program}). Saya ingin registrasi lebih lanjut mengenai kursus bahasa Inggris.`);
                             const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
                             window.open(whatsappUrl, '_blank');
                         },
@@ -122,15 +168,13 @@ export default function Registrasi() {
                 });
                 form.reset();
             } else {
-                toast.error("Gagal mengirim permintaan konsultasi.", {
-                    className: "bg-red-500",
+                toast.error("Gagal mengirim permintaan registrasi.", {
                     description: result.message || "Terjadi kesalahan pada server kami.",
                 });
             }
         } catch (error) {
             console.error("Error submitting form:", error);
             toast.error("Terjadi masalah koneksi atau server.", {
-                className: "bg-red-500",
                 description: "Mohon coba lagi nanti.",
             });
         } finally {
@@ -152,22 +196,22 @@ export default function Registrasi() {
                     className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.0625rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-blue-100 to-blue-400 opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
                 />
             </div>
-            <div className="flex flex-col md:flex-row p-5 items-center justify-center min-h-screen bg-gray-50">
-                <div className="w-full md:w-1/2 flex items-center justify-center mb-8 md:mb-0">
+            <div className="flex flex-col gap-5 px-5 py-20 md:pt-32 min-h-screen bg-gray-50">
+                <div className="w-full flex mb-8 md:mb-0">
                     <div className="text-center max-w-lg mx-auto md:text-lleft">
-                        <Image alt="konsultasi" src="/images/benefit-2.webp" className="mx-auto" width={300} height={300} />
+                        <Image alt="registrasi" src="/images/benefit-2.webp" className="mx-auto" width={300} height={300} />
                         <h1 className="text-3xl font-bold text-gray-800 mb-4">
-                            Siap Tingkatkan Kemampuan Bahasa Inggrismu?
+                            Daftar Sekarang dan Mulai Petualangan Bahasa Inggrismu!
                         </h1>
                         <p className="text-md text-gray-600">
-                            Dapatkan konsultasi gratis untuk menemukan program kursus bahasa Inggris yang paling cocok untuk kamu. Mulai petualangan berbahasa Inggris kamu hari ini!
+                            Isi formulir singkat di bawah ini untuk mendaftar kursus bahasa Inggris kami.
                         </p>
                     </div>
                 </div>
-                <div className="flex min-h-[60vh] h-full w-full md:w-1/2 items-center justify-center px-4 z-20">
-                    <Card className="w-full max-w-lg shadow-lg">
+                <div className="flex h-full w-full max-w-2xl mx-auto items-center justify-center px-4 z-20">
+                    <Card className="w-full shadow-lg">
                         <CardHeader>
-                            <CardTitle className="text-2xl text-blue-600 font-semibold">Registrasi Sekarang</CardTitle>
+                            <CardTitle className="text-2xl font-semibold text-blue-500">Registrasi Sekarang</CardTitle>
                             <CardDescription className="text-sm text-gray-600">
                                 Isi formulir di bawah ini dan kami akan segera menghubungimu.
                             </CardDescription>
@@ -196,9 +240,42 @@ export default function Registrasi() {
                                         name="usia"
                                         render={({ field }) => (
                                             <FormItem>
-                                                <FormLabel >Usia</FormLabel>
+                                                <FormLabel>Usia</FormLabel>
                                                 <FormControl>
-                                                    <Input type="number" placeholder="Contoh: 25" {...field} />
+                                                    <Input type="number" placeholder="Contoh: 25" {...field} value={field.value === 0 ? 0 : field.value} />
+                                                </FormControl>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
+
+                                    {/* Field WhatsApp */}
+                                    <FormField
+                                        control={form.control}
+                                        name="whatsapp"
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormLabel>Nomor WhatsApp</FormLabel>
+                                                <FormControl>
+                                                    <Input placeholder="Contoh: 081234567890" {...field} />
+                                                </FormControl>
+                                                <FormDescription>
+                                                    Masukkan nomor WhatsApp aktif Anda (e.g., 081234567890 atau +6281234567890).
+                                                </FormDescription>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
+
+                                    {/* Field Email */}
+                                    <FormField
+                                        control={form.control}
+                                        name="email"
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormLabel>Alamat Email</FormLabel>
+                                                <FormControl>
+                                                    <Input type="email" placeholder="Contoh: nama@example.com" {...field} />
                                                 </FormControl>
                                                 <FormMessage />
                                             </FormItem>
@@ -227,30 +304,16 @@ export default function Registrasi() {
                                                                     ? availablePrograms.find(
                                                                         (program) => program.label === field.value
                                                                     )?.label
-                                                                    : "Pilih atau ketik program..."}
+                                                                    : "Pilih program..."}
                                                                 <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                                                             </Button>
                                                         </FormControl>
                                                     </PopoverTrigger>
                                                     <PopoverContent className="w-[var(--radix-popover-trigger-width)] p-0">
                                                         <Command>
-                                                            <CommandInput placeholder="Cari atau ketik program..." />
+                                                            <CommandInput placeholder="Cari program..." />
                                                             <CommandList>
-                                                                <CommandEmpty>
-                                                                    <CommandItem
-                                                                        onSelect={() => {
-                                                                            const newValue = form.getValues("program");
-                                                                            form.setValue("program", newValue);
-                                                                            form.trigger("program");
-                                                                            (document.getElementById(field.name) as HTMLButtonElement)?.click();
-                                                                        }}
-                                                                    >
-                                                                        {form.getValues("program")} tambahkan sebagai program baru
-                                                                    </CommandItem>
-                                                                    <CommandItem className="text-muted-foreground">
-                                                                        Tidak ada program ditemukan. Ketik untuk menambah baru.
-                                                                    </CommandItem>
-                                                                </CommandEmpty>
+                                                                <CommandEmpty>Tidak ada program ditemukan.</CommandEmpty>
                                                                 <CommandGroup>
                                                                     {availablePrograms.map((program) => (
                                                                         <CommandItem
@@ -258,8 +321,7 @@ export default function Registrasi() {
                                                                             key={program.value}
                                                                             onSelect={() => {
                                                                                 form.setValue("program", program.label);
-                                                                                form.trigger("program");
-                                                                                (document.getElementById(field.name) as HTMLButtonElement)?.click();
+                                                                                form.trigger("program"); // Trigger validation on change
                                                                             }}
                                                                         >
                                                                             <Check
@@ -279,7 +341,161 @@ export default function Registrasi() {
                                                     </PopoverContent>
                                                 </Popover>
                                                 <FormDescription>
-                                                    Pilih program atau ketikkan program bahasa Inggris kamu inginkan.
+                                                    Pilih program bahasa Inggris yang paling Anda minati.
+                                                </FormDescription>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
+
+                                    {/* Field Jam (Combobox) */}
+                                    <FormField
+                                        control={form.control}
+                                        name="jam"
+                                        render={({ field }) => (
+                                            <FormItem className="flex flex-col">
+                                                <FormLabel>Waktu Belajar yang Diminati</FormLabel>
+                                                <Popover>
+                                                    <PopoverTrigger asChild>
+                                                        <FormControl>
+                                                            <Button
+                                                                variant="outline"
+                                                                role="combobox"
+                                                                className={cn(
+                                                                    "w-full justify-between",
+                                                                    !field.value && "text-muted-foreground"
+                                                                )}
+                                                            >
+                                                                {field.value
+                                                                    ? availableTimes.find(
+                                                                        (time) => time.label === field.value
+                                                                    )?.label
+                                                                    : "Pilih waktu..."}
+                                                                <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                                                            </Button>
+                                                        </FormControl>
+                                                    </PopoverTrigger>
+                                                    <PopoverContent className="w-[var(--radix-popover-trigger-width)] p-0">
+                                                        <Command>
+                                                            <CommandInput placeholder="Cari waktu..." />
+                                                            <CommandList>
+                                                                <CommandEmpty>Tidak ada waktu ditemukan.</CommandEmpty>
+                                                                <CommandGroup>
+                                                                    {availableTimes.map((time) => (
+                                                                        <CommandItem
+                                                                            value={time.label}
+                                                                            key={time.value}
+                                                                            onSelect={() => {
+                                                                                form.setValue("jam", time.label);
+                                                                                form.trigger("jam"); // Trigger validation on change
+                                                                            }}
+                                                                        >
+                                                                            <Check
+                                                                                className={cn(
+                                                                                    "mr-2 h-4 w-4",
+                                                                                    time.label === field.value
+                                                                                        ? "opacity-100"
+                                                                                        : "opacity-0"
+                                                                                )}
+                                                                            />
+                                                                            {time.label}
+                                                                        </CommandItem>
+                                                                    ))}
+                                                                </CommandGroup>
+                                                            </CommandList>
+                                                        </Command>
+                                                    </PopoverContent>
+                                                </Popover>
+                                                <FormDescription>
+                                                    Pilih rentang waktu belajar yang paling sesuai untuk Anda.
+                                                </FormDescription>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
+
+                                    {/* Field Domisili / Note (Textarea) */}
+                                    <FormField
+                                        control={form.control}
+                                        name="domisili"
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormLabel>Domisili</FormLabel>
+                                                <FormControl>
+                                                    <Textarea
+                                                        placeholder="Contoh: Surabaya, Jawa Timur."
+                                                        className="resize-y"
+                                                        {...field}
+                                                    />
+                                                </FormControl>
+                                                <FormDescription>
+                                                    Masukkan domisili kamu.
+                                                </FormDescription>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
+
+                                    {/* Field TauNBdariMana (Combobox) */}
+                                    <FormField
+                                        control={form.control}
+                                        name="source"
+                                        render={({ field }) => (
+                                            <FormItem className="flex flex-col">
+                                                <FormLabel>Bagaimana Anda tahu kami?</FormLabel>
+                                                <Popover>
+                                                    <PopoverTrigger asChild>
+                                                        <FormControl>
+                                                            <Button
+                                                                variant="outline"
+                                                                role="combobox"
+                                                                className={cn(
+                                                                    "w-full justify-between",
+                                                                    !field.value && "text-muted-foreground"
+                                                                )}
+                                                            >
+                                                                {field.value
+                                                                    ? howDidYouKnowUs.find(
+                                                                        (source) => source.label === field.value
+                                                                    )?.label
+                                                                    : "Pilih sumber informasi..."}
+                                                                <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                                                            </Button>
+                                                        </FormControl>
+                                                    </PopoverTrigger>
+                                                    <PopoverContent className="w-[var(--radix-popover-trigger-width)] p-0">
+                                                        <Command>
+                                                            <CommandInput placeholder="Cari sumber..." />
+                                                            <CommandList>
+                                                                <CommandEmpty>Tidak ada sumber ditemukan.</CommandEmpty>
+                                                                <CommandGroup>
+                                                                    {howDidYouKnowUs.map((source) => (
+                                                                        <CommandItem
+                                                                            value={source.label}
+                                                                            key={source.value}
+                                                                            onSelect={() => {
+                                                                                form.setValue("source", source.label);
+                                                                                form.trigger("source"); // Trigger validation on change
+                                                                            }}
+                                                                        >
+                                                                            <Check
+                                                                                className={cn(
+                                                                                    "mr-2 h-4 w-4",
+                                                                                    source.label === field.value
+                                                                                        ? "opacity-100"
+                                                                                        : "opacity-0"
+                                                                                )}
+                                                                            />
+                                                                            {source.label}
+                                                                        </CommandItem>
+                                                                    ))}
+                                                                </CommandGroup>
+                                                            </CommandList>
+                                                        </Command>
+                                                    </PopoverContent>
+                                                </Popover>
+                                                <FormDescription>
+                                                    Bantu kami mengetahui dari mana Anda mendapatkan informasi tentang kami.
                                                 </FormDescription>
                                                 <FormMessage />
                                             </FormItem>
@@ -302,7 +518,6 @@ export default function Registrasi() {
                     </Card>
                 </div>
             </div>
-        </section>
-
+        </section >
     );
 }

@@ -169,7 +169,7 @@ const StyledWrapper = styled.div`
   button {
     position: relative;
     padding: 10px 35px;
-    background: #e5c230;
+    background: #F0DE36;
     font-size: 17px;
     font-weight: 500;
     color: #181818;
@@ -186,7 +186,7 @@ const StyledWrapper = styled.div`
     left: 20%;
     width: 25px;
     height: auto;
-    filter: drop-shadow(0 0 0 #fffdef);
+    filter: drop-shadow(0 0 0 #D71313);
     z-index: -5;
     transition: all 1s cubic-bezier(0.05, 0.83, 0.43, 0.96);
   }
@@ -197,7 +197,7 @@ const StyledWrapper = styled.div`
     left: 45%;
     width: 15px;
     height: auto;
-    filter: drop-shadow(0 0 0 #fffdef);
+    filter: drop-shadow(0 0 0 #D71313);
     z-index: -5;
     transition: all 1s cubic-bezier(0, 0.4, 0, 1.01);
   }
@@ -208,7 +208,7 @@ const StyledWrapper = styled.div`
     left: 40%;
     width: 5px;
     height: auto;
-    filter: drop-shadow(0 0 0 #fffdef);
+    filter: drop-shadow(0 0 0 #D71313);
     z-index: -5;
     transition: all 1s cubic-bezier(0, 0.4, 0, 1.01);
   }
@@ -219,7 +219,7 @@ const StyledWrapper = styled.div`
     left: 40%;
     width: 8px;
     height: auto;
-    filter: drop-shadow(0 0 0 #fffdef);
+    filter: drop-shadow(0 0 0 #D71313);
     z-index: -5;
     transition: all 0.8s cubic-bezier(0, 0.4, 0, 1.01);
   }
@@ -230,7 +230,7 @@ const StyledWrapper = styled.div`
     left: 45%;
     width: 15px;
     height: auto;
-    filter: drop-shadow(0 0 0 #fffdef);
+    filter: drop-shadow(0 0 0 #D71313);
     z-index: -5;
     transition: all 0.6s cubic-bezier(0, 0.4, 0, 1.01);
   }
@@ -241,7 +241,7 @@ const StyledWrapper = styled.div`
     left: 50%;
     width: 5px;
     height: auto;
-    filter: drop-shadow(0 0 0 #fffdef);
+    filter: drop-shadow(0 0 0 #D71313);
     z-index: -5;
     transition: all 0.8s ease;
   }
@@ -258,7 +258,7 @@ const StyledWrapper = styled.div`
     left: -30%;
     width: 25px;
     height: auto;
-    filter: drop-shadow(0 0 10px #fffdef);
+    filter: drop-shadow(0 0 10px #D71313);
     z-index: 2;
   }
 
@@ -268,7 +268,7 @@ const StyledWrapper = styled.div`
     left: 10%;
     width: 15px;
     height: auto;
-    filter: drop-shadow(0 0 10px #fffdef);
+    filter: drop-shadow(0 0 10px #D71313);
     z-index: 2;
   }
 
@@ -278,7 +278,7 @@ const StyledWrapper = styled.div`
     left: 25%;
     width: 5px;
     height: auto;
-    filter: drop-shadow(0 0 10px #fffdef);
+    filter: drop-shadow(0 0 10px #D71313);
     z-index: 2;
   }
 
@@ -288,7 +288,7 @@ const StyledWrapper = styled.div`
     left: 80%;
     width: 8px;
     height: auto;
-    filter: drop-shadow(0 0 10px #fffdef);
+    filter: drop-shadow(0 0 10px #D71313);
     z-index: 2;
   }
 
@@ -298,7 +298,7 @@ const StyledWrapper = styled.div`
     left: 115%;
     width: 15px;
     height: auto;
-    filter: drop-shadow(0 0 10px #fffdef);
+    filter: drop-shadow(0 0 10px #D71313);
     z-index: 2;
   }
 
@@ -308,12 +308,12 @@ const StyledWrapper = styled.div`
     left: 60%;
     width: 5px;
     height: auto;
-    filter: drop-shadow(0 0 10px #fffdef);
+    filter: drop-shadow(0 0 10px #D71313);
     z-index: 2;
   }
 
   .fil0 {
-    fill: #fffdef;
+    fill: #D71313;
   }
 `;
 

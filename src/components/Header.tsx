@@ -4,12 +4,11 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { Transition } from "@headlessui/react";
 import { HiOutlineXMark, HiBars3 } from "react-icons/hi2";
-import { FaFingerprint } from "react-icons/fa";
 
 import Container from "./Container";
-import { siteDetails } from "@/data/siteDetails";
 import { menuItems } from "@/data/menuItems";
 import ButtonDaftar from "./ButtonDaftar";
+import Image from "next/image";
 
 const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -24,10 +23,7 @@ const Header: React.FC = () => {
         <nav className="shadow-md md:shadow-none bg-white md:bg-transparent mx-auto flex justify-between items-center py-2 px-5 md:py-10">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
-            <FaFingerprint className="text-foreground min-w-fit w-7 h-7" />
-            <span className="manrope text-xl font-semibold text-foreground cursor-pointer">
-              {siteDetails.siteName}
-            </span>
+            <Image alt="site logo" src="/favicon.ico" width={100} height={100} />
           </Link>
 
           {/* Desktop Menu */}
@@ -36,7 +32,7 @@ const Header: React.FC = () => {
               <li key={item.text}>
                 <Link
                   href={item.url}
-                  className="text-foreground hover:text-foreground-accent transition-colors"
+                  className="text-foreground ease-in-out duration-300 hover:text-red-500 transition-colors"
                 >
                   {item.text}
                 </Link>
@@ -83,7 +79,7 @@ const Header: React.FC = () => {
               <li key={item.text}>
                 <Link
                   href={item.url}
-                  className="text-foreground hover:text-primary block"
+                  className="text-foreground hover:text-primary block ease-in-out duration-300 hover:text-red-500"
                   onClick={toggleMenu}
                 >
                   {item.text}
@@ -91,13 +87,7 @@ const Header: React.FC = () => {
               </li>
             ))}
             <li>
-              <Link
-                href="#cta"
-                className="text-black bg-primary hover:bg-primary-accent px-5 py-2 rounded-full block w-fit"
-                onClick={toggleMenu}
-              >
-                Get Started
-              </Link>
+              <ButtonDaftar />
             </li>
           </ul>
         </div>

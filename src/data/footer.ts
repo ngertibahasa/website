@@ -10,16 +10,20 @@ export const footerDetails: {
   subheading: "Ngomong Inggris Nggak Cuma Bisa, Tapi Ngerti!",
   quickLinks: [
     {
-      text: "Features",
-      url: "#features",
+      text: "FAQ",
+      url: "/#faq",
     },
     {
-      text: "Pricing",
-      url: "#pricing",
+      text: "Blog",
+      url: "/blog",
     },
     {
-      text: "Testimonials",
-      url: "#testimonials",
+      text: "Careers",
+      url: "/careers",
+    },
+    {
+      text: "Kebijakan Privasi & Syarat Layanan",
+      url: "/privacy-policy",
     },
   ],
   email: "ngertibahasa.ec@gmail.com",

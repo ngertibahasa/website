@@ -36,7 +36,7 @@ const StyledWrapper = styled.div`
   button {
     font-family: inherit;
     font-size: 20px;
-    background: royalblue;
+    background: #0D1282;
     color: white;
     padding: 12px 35px;
     display: flex;
@@ -49,7 +49,7 @@ const StyledWrapper = styled.div`
   }
 
   button:hover{
-    background: #0D1282;
+    background: royalblue;
   }
 
   button span {

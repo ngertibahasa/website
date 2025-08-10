@@ -1,6 +1,6 @@
 export const heroDetails = {
-  heading: "Ngerti Inggris, Buka Peluang Lebih!",
+  heading: "Ngerti Inggris, Ngerti Dunia, Ya Ngerti Bahasa aja!",
   subheading:
-    "Belajar Bahasa Inggris nggak harus ribet. Bareng tutor asik dan metode kekinian, kamu bisa jago ngomong & paham konteks global.",
+    "Metode unik, dijamin nggak bikin panik. Atur jadwal sesukamu, lihat progres di depan matamu.",
   centerImageSrc: "/images/hero-image.png",
 };

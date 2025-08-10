@@ -1,25 +1,29 @@
 import { IFAQ } from "@/types";
-import { siteDetails } from "./siteDetails";
 
 export const faqs: IFAQ[] = [
     {
-        question: `Is ${siteDetails.siteName} secure?`,
-        answer: 'Absolutely. We use bank-level encryption to protect your data and never store your login information. Plus, our biometric authentication adds an extra layer of security.',
+        question: `📚 Bagaimana Metode Belajarnya?`,
+        answer: 'Belajar di Ngerti Bahasa disusun agar mudah dipahami, praktis, dan menyenangkan. Kami menggunakan pendekatan NLP (Neuro-Linguistic Programming) untuk membangun mindset positif, meningkatkan fokus, dan membantu kamu lebih cepat menguasai bahasa Inggris. Materi disusun bertahap dari dasar hingga mahir, dilengkapi dengan latihan interaktif, praktik langsung, dan bimbingan dari tutor berpengalaman. Kamu bisa belajar sesuai gaya terbaikmu — visual, auditori, atau kinestetik kapan saja dan di mana saja.',
     },
     {
-        question: `Can I use ${siteDetails.siteName} on multiple devices?`,
-        answer: 'Absolutely! Your Finwise account syncs seamlessly across all your devices - smartphone, tablet, and computer.',
+        question: `🧠 Apa Itu Metode NLP?`,
+        answer: 'NLP (Neuro-Linguistic Programming) adalah metode pembelajaran yang membantu kamu memahami cara kerja pikiran, bahasa, dan kebiasaan, agar proses belajar jadi lebih cepat, fokus, dan menyenangkan.',
     },
     {
-        question: 'Can I connect all my bank accounts?',
-        answer: `Yes! ${siteDetails.siteName} supports connections with over 10,000 financial institutions worldwide. Simply log in through our secure portal to link your accounts.`
+        question: '❓ Apakah Kursus Ini Hanya untuk Pemula?',
+        answer: `Tidak. Kursus ini cocok untuk semua level dan kalangan!
+        Ngerti Bahasa untuk:
+        Pemula yang belum pernah belajar bahasa Inggris,
+        Pelajar & mahasiswa yang ingin meningkatkan kemampuan akademik,
+        Pekerja & profesional yang butuh skill bahasa Inggris untuk karier,
+        Serta job seeker yang ingin tampil percaya diri saat wawancara kerja atau menulis CV dalam bahasa Inggris.`
     },
     {
-        question: 'Do I need any financial expertise to use the investing features?',
-        answer: 'Not at all! Our expert-curated portfolios and educational resources make investing accessible to everyone, regardless of experience level.',
+        question: `🌟 Apa yang Membuat Ngerti Bahasa Berbeda?`,
+        answer: `Fokus utama kami adalah pembelajaran praktis. Selain video materi, kamu juga akan mendapatkan:
+        Latihan interaktif setiap topik, Sesi conversation practice/ latihan percakapan,
+        Feedback personal dari pengajar,
+        Komunitas belajar yang suportif,
+        Kami ingin kamu bukan hanya paham bahasa Inggris, tapi juga benar - benar bisa menggunakannya dalam kehidupan sehari - hari.`,
     },
-    {
-        question: 'What if I need help using the app?',
-        answer: 'Our dedicated support team is available 24/7 via chat or email. Plus, we offer extensive in-app tutorials and a comprehensive knowledge base to help you make the most of Finwise.'
-    }
 ];

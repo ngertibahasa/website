@@ -27,7 +27,7 @@ export const footerDetails: {
     },
   ],
   email: "ngertibahasa.ec@gmail.com",
-  telephone: "+1 (123) 456-7890",
+  telephone: "+628159777498",
   socials: {
     // github: 'https://github.com',
     // x: 'https://twitter.com/x',

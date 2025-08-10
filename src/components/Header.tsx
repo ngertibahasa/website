@@ -20,9 +20,9 @@ const Header: React.FC = () => {
   return (
     <header className="bg-transparent fixed top-0 left-0 right-0 md:absolute z-50 mx-auto w-full">
       <Container className="!px-0">
-        <nav className="shadow-md md:shadow-none bg-white md:bg-transparent mx-auto flex justify-between items-center py-2 px-5 md:py-10">
+        <nav className="shadow-md md:shadow-none bg-white md:bg-transparent mx-auto flex gap-20 items-center py-2 px-5 md:py-10">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2">
+          <Link href="/" className="flex items-center gap-2 hover:scale-105">
             <Image alt="site logo" src="/favicon.ico" width={100} height={100} />
           </Link>
 
@@ -32,7 +32,7 @@ const Header: React.FC = () => {
               <li key={item.text}>
                 <Link
                   href={item.url}
-                  className="text-foreground ease-in-out duration-300 hover:text-red-500 transition-colors"
+                  className="text-foreground text-xl ease-in-out duration-300 hover:text-red-500 hover:scale-110 transition-colors"
                 >
                   {item.text}
                 </Link>
